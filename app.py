@@ -1,42 +1,20 @@
 import streamlit as st
 from supabase import create_client
 
-# 1. Konfigurasi Database (Sudah sesuai gambar 1000049422.jpg Anda)
-URL = "https://xdttzqyucjcoheskrrvj.supabase.co"
-KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkdHR6cXl1Y2pjb2hlc2tycnZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMzg1MzgsImV4cCI6MjA5MzkxNDUzOH0r33ZK8WWCcVBbbaPjqMmepCgaWvd6UJdSmspfaJfclc
-supabase = create_client(URL, KEY)
+# Mengambil data rahasia dari menu Secrets secara otomatis
+url = st.secrets["SUPABASE_URL"]
+key = st.secrets["SUPABASE_KEY"]
 
-# 2. Tampilan Aplikasi
-st.set_page_config(page_title="DEDIK AI - Stok", layout="centered")
-st.title("📱 DEDIK AI Management")
+supabase = create_client(url, key)
 
-menu = st.sidebar.selectbox("Pilih Menu", ["Cek Stok", "Tambah Barang", "Kasir"])
+st.title("DEDIK AI Management")
+st.success("Koneksi Berhasil! Ruang kontrol kode sudah ideal.")
 
-if menu == "Cek Stok":
-    st.subheader("📦 Daftar Barang")
-    try:
-        res = supabase.table("produk").select("*").execute()
-        if res.data:
-            st.table(res.data)
-        else:
-            st.info("Belum ada data barang.")
-    except Exception as e:
-        st.error(f"Gagal mengambil data: {e}")
-
-elif menu == "Tambah Barang":
-    st.subheader("🆕 Tambah Barang Baru")
-    with st.form("form_tambah"):
-        nama = st.text_input("Nama Barang")
-        stok = st.number_input("Jumlah Stok", min_value=0)
-        jual = st.number_input("Harga Jual (Rp)", min_value=0)
-        submit = st.form_submit_button("Simpan Barang")
-        
-        if submit:
-            data = {"nama": nama, "stok": stok, "harga_jual": jual}
-            supabase.table("produk").insert(data).execute()
-            st.success(f"✅ Berhasil menyimpan: {nama}")
-
-elif menu == "Kasir":
-    st.subheader("💰 Catat Penjualan")
-    st.write("Fitur ini akan membantu Anda mengurangi stok secara otomatis.")
-    # Fitur kasir akan kita kembangkan setelah ini
+# Mencoba menampilkan data dari tabel
+try:
+    # Ganti 'nama_tabel' dengan nama tabel asli di Supabase Anda
+    data = supabase.table("nama_tabel").select("*").execute()
+    st.write("Data Database:", data.data)
+except Exception as e:
+    st.info("Koneksi database aktif, silakan sesuaikan nama tabel Anda.")
+    
