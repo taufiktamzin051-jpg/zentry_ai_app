@@ -3,7 +3,7 @@ from supabase import create_client
 
 # 1. Konfigurasi Database (Sudah sesuai gambar 1000049422.jpg Anda)
 URL = "https://xdttzqyucjcoheskrrvj.supabase.co"
-KEY = "MASUKKAN_ANON_KEY_PANJANG_ANDA_DI_SINI"
+KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkdHR6cXl1Y2pjb2hlc2tycnZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMzg1MzgsImV4cCI6MjA5MzkxNDUzOH0.r33ZK8WWCcVBbbaPjqMmepCgaWvd6UJdSmspfaJfclc
 supabase = create_client(URL, KEY)
 
 # 2. Tampilan Aplikasi
